@@ -1,0 +1,62 @@
+
+apply plugin: 'spring-boot'
+
+//sourceCompatibility = 1.7
+
+buildscript
+{
+	repositories
+	{
+		mavenCentral()
+	}
+
+	dependencies
+	{
+		classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE')
+	}
+}
+
+
+
+jar
+//war
+{
+	baseName = 'linebot-office-directory'
+	version = '0.1.0'
+}
+
+repositories
+{
+	jcenter()
+	flatDir { dirs 'libs' }
+}
+
+configurations
+{
+	providedRuntime
+}
+
+task (distclean, dependsOn: clean) <<
+{
+	delete ".gradle"
+}
+
+configure(distclean)
+{
+	group = 'Build'
+	description = 'Clean the build result and the .gradle directory'
+}
+
+dependencies
+{
+	compile('org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE')
+	compile('org.springframework:spring-jdbc:4.3.2.RELEASE')
+	compile('org.postgresql:postgresql:9.4.1209.jre7')
+	compile('com.squareup.retrofit2:retrofit:2.1.0')
+	compile('com.google.guava:guava:20.0')
+	compile('com.linecorp.bot:line-bot-api-client:1.5.0')
+	compile('com.linecorp.bot:line-bot-model:1.5.0')
+	compile('com.linecorp.bot:line-bot-servlet:1.6.0-SNAPSHOT')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:1.4.0.RELEASE')
+	testCompile("junit:junit")
+}
